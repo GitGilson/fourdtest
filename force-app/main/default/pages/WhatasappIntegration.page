@@ -1,0 +1,9 @@
+<apex:page controller="WhatsappController" >
+ 
+    <body>
+        
+        <apex:form >
+            <apex:commandButton value="Send Message" action="{!sendMessage}" rerender="dummy" />
+        </apex:form>
+    </body>
+</apex:page>

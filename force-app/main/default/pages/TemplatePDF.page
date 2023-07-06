@@ -1,0 +1,154 @@
+<apex:page controller="ContaPDFController" applyHtmlTag="false" showHeader="false" renderAs="PDF">
+        <html>
+        <head>
+            <style>
+                * {
+                box-sizing: border-box;
+                }
+                
+                .heading {
+                font-weight: bold;
+                }
+                
+                .heading--main {
+                font-size: 36px;
+                }
+                
+                .heading--sub {
+                font-size: 21px;
+                }
+                
+                .box--half {
+                float: left;
+                width: 50%;
+                }
+                
+                .box--full {
+                float: left;
+                width: 100%;
+                }
+               
+                th {
+                background-color: #B8C0BC;
+                font-align: left;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 5px;
+                border-color: black ;
+                }
+                
+                td {
+                border: 5px;
+                font-size: 12px;
+                padding: 5px;
+                text-align: left;
+                width: 33%;
+                } 
+                .center {
+                  margin: auto;
+                  width: 100%;
+                  
+                  padding: 10px;
+                }       
+                table, th, td {
+                 border: 1px solid black;
+                 border-collapse: collapse;
+                 margin-left: 30px;
+                 margin-right: 10px;
+                }       
+
+#main { 
+    width: 800px;
+    margin: 0 auto;
+}
+#sidebar    {
+    width: 300px;
+    height: 100px;
+    margin-left: 30px;
+}
+
+#page-wrap  {   
+    width: 50px;
+    height: 50px;
+    float: right;
+}   
+#page-valor  {  
+    width: 600px;
+    text-align: right;
+    
+} 
+
+#ass  {  
+float:right;
+text-align: center;
+
+    
+}     
+
+        
+  </style>
+        </head>
+        <body>
+            <div id="main">     
+                <div class="center" id="sidebar"> 
+                    <h2 class="heading heading--sub">{!account.Name}</h2>
+                     <span>{!account.BillingStreet}</span>
+                    <br />
+                    <span>{!account.BillingCity}&nbsp;{!account.BillingState}&nbsp;{!account.BillingPostalCode}</span>
+                </div>
+                <div id="page-wrap" >
+                    <span>Data:</span>             
+                </div>
+             </div>
+            <br/><br/>
+               <div >
+                <center>
+                    <h1 style="font-size:20px;">RECIBO DE PAGAMENTO</h1>
+                </center>
+               </div>
+                
+                <div id="page-valor">
+                    <span>(R$) </span>  
+                    <span style="font-size:30px;font-weight: bold;">***{!account.AnnualRevenue}*** </span>
+                </div>
+                    <br/><br/>
+               <div style="margin-left:10%">
+                    <span>
+                        Recebemos o valor acima descrito, na presente data, ref. pagamento do(s) titulo(s) abaixo:
+                    </span>
+                    <br/><br/>
+                    <span>
+                        Forma de Pagamento: <b>{!account.SLA__c}</b>
+                    </span>
+                    
+                    <br/><br/>
+                </div>
+           
+           <div>
+                <table style="width:90%">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo de documento</th>
+                        <th>Vencimento</th>
+                         <th>Valor</th>
+                    </tr>
+                    <!-- apex:repeat value="{!wonOppList}" var="wonOpp" -->
+                        <tr>
+                            <td>{!account.Name}</td>
+                            <td>{!account.SLA__c}</td>
+                            <td>{!MONTH(account.SLAExpirationDate__c)}-{!DAY(account.SLAExpirationDate__c)}-{!YEAR(account.SLAExpirationDate__c)}</td>
+                            <td>{!account.AnnualRevenue}</td>
+                        </tr>
+                    <!-- /apex:repeat -->
+                </table>
+            </div>
+               <br/><br/><br/><br/>
+            <div id="ass">
+                <hr style="width:80%;text-align:center;margin-left:30"/>
+                <span class="nome"  style="margin-right:30px">JENIFER SALES MARIA PADOVANI - CPF: 434.429.938-81 </span><br/>
+                <span> (Recibo Válido Somente Assinado)</span>
+            </div>
+
+        </body>
+    </html>
+</apex:page>

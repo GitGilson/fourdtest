@@ -1,0 +1,111 @@
+<apex:page controller="ContaPDFController" applyHtmlTag="false" showHeader="false" renderAs="PDF">
+    <html>
+        <head>
+            <style>
+                * {
+                dimensionamento da caixa: caixa de borda;
+                }
+                
+                .cabeçalho {
+                intensidade da fonte: Negrito;
+                }
+                
+                .heading - main {
+                tamanho da fonte: 36px;
+                }
+                
+                .heading - sub {
+                tamanho da fonte: 21px;
+                }
+                
+                .box - metade {
+                flutuar: esquerda;
+                largura: 50%;
+                }
+                
+                .box - full {
+                flutuar: esquerda;
+                largura: 100%;
+                }
+                
+                tabela {
+                colapso da fronteira: colapso;
+                margem superior: 25px;
+                largura: 100%;
+                }
+                
+                º {
+                cor de fundo: # 92d5f0;
+                font-align: left;
+                tamanho da fonte: 14px;
+                intensidade da fonte: Negrito;
+                preenchimento: 5px;
+                }
+                
+                td {
+                tamanho da fonte: 12px;
+                preenchimento: 5px;
+                alinhamento de texto: esquerda;
+                largura: 33%;
+                }                
+            </style>
+        </head>
+        <body>
+            <center>
+                <h1 class = "header header - main"> Resumo da fatura </h1>
+            </center>
+            <div class = "box - half">
+                <h2 class = "header header - sub"> Faturar para: </h2>
+                <span> {! account.Name} </span>
+                <br />
+                <span> {! account.BillingStreet} </span>
+                <br />
+                <span> {! account.BillingCity} &nbsp; {! account.BillingState} &nbsp; {! account.BillingPostalCode} </span>
+            </div>
+            <div class = "box-half">
+                <h2 class = "header header - sub"> Pague a: </h2>
+                <span> Conta Falsa </span>
+                <br />
+                <span> Endereço </span>
+                <br />
+                <span> Cidade, Estado PostalCode </span>
+                <br />
+                <span> País </span>
+            </div>
+            <div class = "box-full">
+                <h2 class = "header header - sub"> Faturado </h2>
+                <table>
+                    <tr>
+                        <th> Nome </th>
+                        <th> Quantidade </th>
+                        <th> Data de fechamento </th>
+                    </tr>
+                    <apex:repeat value="{! wonOppList}" var="wonOpp">
+                        <tr>
+                            <td> {! wonOpp.Name} </td>
+                            <td> {! wonOpp.Amount} </td>
+                            <td> {! MONTH (wonOpp.CloseDate)} - {! DAY (wonOpp.CloseDate)} - {! YEAR (wonOpp.CloseDate)} </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </div>
+            <div class = "box - full">
+                <h2 class = "header header - sub"> Não faturado </h2>
+                <table>
+                    <tr>
+                        <th> Nome </th>
+                        <th> Quantidade </th>
+                        <th> Status </th>
+                    </tr>
+                    <apex:repeat value="{! notWonOppList}" var="notWonOpp">
+                        <tr>
+                            <td> {! notWonOpp.Name} </td>
+                            <td> {! notWonOpp.Amount} </td>
+                            <td> {! notWonOpp.StageName} </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </div>
+        </body>
+    </html>
+</apex:page>
