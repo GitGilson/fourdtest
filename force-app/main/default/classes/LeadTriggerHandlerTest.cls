@@ -25,5 +25,6 @@ private class LeadTriggerHandlerTest {
             System.assert(errorMessage.contains('O campo Postal Code deve estar no formato XXXXX-XXX ou conter apenas números.'));
         }
         Test.stopTest();
+        
     }
 }
